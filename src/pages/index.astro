@@ -2,52 +2,97 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 
+interface RepoGroup {
+  title: string;
+  children: RepoItem[];
+}
+
 interface RepoItem {
   href: string;
   title: string;
   body: string;
 }
 
-const repos: RepoItem[] = [
+const repoGroups: RepoGroup[] = [
   {
-    href: "https://github.com/lexmin0412/todo",
-    title: "Todo",
-    body: "一个简单的待办清单，没有任何额外功能。",
-  },
-  {
-    href: "https://github.com/lexmin0412/my-second-brain",
-    title: "My Second Brain",
-    body: "一个简单的知识库，做你的第二大脑。",
-  },
-  {
-    href: "https://github.com/lexmin0412/storybook",
-    title: "Storybook",
-    body: "一本故事集，记录你的美好生活。",
-  },
-	{
-    href: "https://github.com/lexmin0412/apphub",
-    title: "APPHub",
-    body: "一个应用列表页，展示了我开发的应用，当然是 Web 应用。",
-  },
-  {
-    href: "https://github.com/lexmin0412/navigation-bar",
-    title: "NavigationBar",
-    body: "一个简单的 Chrome 插件，没想好未来是什么，但已经是一个 Tab 页。",
-  },
-  {
-    href: "https://github.com/lexmin0412/components",
-    title: "Components",
-    body: "一个 Web Compoents 组件库，因为是自己用，所以会一直维护。",
+    title: "Apps",
+    children: [
+      {
+        href: "https://github.com/lexmin0412/todo",
+        title: "Todo",
+        body: "一个简单的待办清单，没有任何额外功能。",
+      },
+      {
+        href: "https://github.com/lexmin0412/my-second-brain",
+        title: "My Second Brain",
+        body: "一个简单的知识库，做你的第二大脑。",
+      },
+      {
+        href: "https://github.com/lexmin0412/storybook",
+        title: "Storybook",
+        body: "一本故事集，记录你的美好生活。",
+      },
+      {
+        href: "https://github.com/lexmin0412/apphub",
+        title: "APPHub",
+        body: "一个应用列表页，展示了我开发的应用，当然是 Web 应用。",
+      },
+    ],
   },
   {
-    href: "https://github.com/lexmin0412/toolkit-fe",
-    title: "Toolkit FE",
-    body: "一个前端常用的工具类库，至少自己的轮子只造一遍。",
+    title: "Libs",
+    children: [
+      {
+        href: "https://github.com/lexmin0412/components",
+        title: "Components",
+        body: "一个 Web Compoents 组件库，因为是自己用，所以会一直维护。",
+      },
+      {
+        href: "https://github.com/lexmin0412/toolkit-fe",
+        title: "Toolkit FE",
+        body: "一个前端常用的工具类库，至少自己的轮子只造一遍。",
+      },
+      {
+        href: "https://github.com/lexmin0412/gcm",
+        title: "Git Config Manager",
+        body: "一个 Git 多账号配置管理工具，解放你的心智。",
+      },
+    ],
   },
-	{
-    href: "https://github.com/lexmin0412/gcm",
-    title: "Git Config Manager",
-    body: "一个 Git 多账号配置管理工具，解放你的心智。",
+  {
+    title: "Chrome Extensions",
+    children: [
+      {
+        href: "https://github.com/lexmin0412/navigation-bar",
+        title: "NavigationBar",
+        body: "一个简单的 Chrome 插件，没想好未来是什么，但已经是一个 Tab 页。",
+      },
+    ],
+  },
+  {
+    title: "Project Templates",
+    children: [
+			{
+				href: 'https://github.com/lexmin0412/monorepo-template',
+				title: 'Monorepo Template',
+				body: '一个开箱即用的 Monorepo 模板仓库。'
+			},
+			{
+				href: 'https://github.com/lexmin0412/react-template',
+				title: 'React Template',
+				body: '一个基于 React18 + Vite 的单页应用模板。'
+			},
+			{
+				href: 'https://github.com/lexmin0412/vue-template',
+				title: 'Vue Template',
+				body: '一个基于 Vue3 + Vite 的单页应用模板。'
+			},
+			{
+				href: 'https://github.com/lexmin0412/taro3-react-template',
+				title: 'Taro3 React Template',
+				body: '一个基于 Taro3 + React Hooks + TypeScript + Scss 的开箱即用的多端项目模板。'
+			},
+		],
   },
 ];
 ---
@@ -86,13 +131,20 @@ const repos: RepoItem[] = [
     <p class="instructions">
       这里是我正在积极维护的 Github 仓库列表，如果你有兴趣，可以点点看。
     </p>
-    <ul role="list" class="link-card-grid">
-      {
-        repos.map((repo) => {
-          return <Card href={repo.href} title={repo.title} body={repo.body} />;
-        })
-      }
-    </ul>
+    {
+      repoGroups.map((group) => {
+        return (
+					<h2>{group.title}</h2>
+          <ul role="list" class="link-card-grid">
+            {group.children.map((repo) => {
+              return (
+                <Card href={repo.href} title={repo.title} body={repo.body} />
+              );
+            })}
+          </ul>
+        );
+      })
+    }
   </main>
 </Layout>
 
