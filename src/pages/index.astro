@@ -205,10 +205,44 @@ const repoGroups: RepoGroup[] = [
         );
       })
     }
+    <footer class="footer">
+      <div>Created and maintained by <a target="_blank" href="https://github.com/lexmin0412">Lexmin</a>.</div>
+      <i class="divider" />
+      <a class="beian" href="https://beian.miit.gov.cn" target="_blank">
+        粤ICP备2025377634号-1
+      </a>
+    </footer>
   </main>
 </Layout>
 
 <style>
+  .footer {
+    font-size: 18px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ccc;
+
+    a {
+      color: #ccc;
+    }
+
+    .divider {
+      width: 2px;
+      background: #aaa;
+      height: 14px;
+      margin: 0 10px;
+      border-radius: 1px;
+    }
+
+    .beian {
+
+      &:hover {
+        color: #1677ff;
+      }
+    }
+  }
   main {
     margin: auto;
     padding: 1rem;
